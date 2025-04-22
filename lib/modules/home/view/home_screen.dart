@@ -38,11 +38,9 @@ class HomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
-                  spacing: 15,
                   children: [
                     IntrinsicHeight(
                       child: Row(
-                        spacing: 10,
                         children: [
                           Expanded(
                               child: CommonTextField(controller: controller, hint: 'Search')),

@@ -41,10 +41,8 @@ void initState() {
       child: DefaultTabController(
         length: 3,
         child: Column(
-          spacing: 20,
           children: [
             Row(
-              spacing: 20,
               children: [
                 Icon(Icons.filter_alt_outlined),
                 Text('Filter'),
@@ -134,7 +132,6 @@ void initState() {
             ),
         
             Row(
-              spacing: 10,
               children: [
                 Expanded(child: CommonButton(title: 'Back', onTap: (){})),
                 Expanded(child: CommonButton(title: 'Apply', onTap: (){

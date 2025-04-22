@@ -36,7 +36,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 20),
         child: Column(
-          spacing: 20,
           children: [
           CircleAvatar(radius: 60,),
           CommonTextField(controller: userNameCtr,label: 'User Name',),

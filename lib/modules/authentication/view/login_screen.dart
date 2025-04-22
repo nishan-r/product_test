@@ -22,7 +22,6 @@ class LoginScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
-          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Lets Get Started',
