@@ -13,7 +13,11 @@ class AppConstants {
   ];
 
   static const List<String> tagsList = [
+    'beauty',
+    'mascara',
+    'eyeshadow',
     'clothing',
+    'face powder',
     "men's shirts",
     'footwear'
   ];

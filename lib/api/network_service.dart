@@ -13,7 +13,6 @@ class NetworkService {
   NetworkService._internal() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: 'https://dummyjson.com/',
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 10),
         headers: {
@@ -38,21 +37,11 @@ class NetworkService {
     }
   }
 
-  Future<Response?> post(String path, {dynamic data}) async {
-    try {
-      final response = await _dio.post(path, data: data);
-      return response;
-    } on DioException catch (e) {
-      _handleError(e);
-      return null;
-    }
-  }
-
   void _handleError(DioException error) {
     if (error.response != null) {
       log(' API Error: ${error.response?.statusCode} ${error.response?.data}');
     } else {
-      log('⚠️ Network Error: ${error.message}');
+      log('Network Error: ${error.message}');
     }
   }
 }

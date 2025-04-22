@@ -1,15 +1,13 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:product_test/utils/common_widgets/common_button.dart';
-
+import 'package:product_test/utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../controller/home_controller.dart';
 
 class CustomFilterSheet extends StatefulWidget {
-   CustomFilterSheet({
-    super.key, required this.homeController,
+  const CustomFilterSheet({
+    super.key,
+    required this.homeController,
   });
 
   final HomeController homeController;
@@ -19,141 +17,208 @@ class CustomFilterSheet extends StatefulWidget {
 }
 
 class _CustomFilterSheetState extends State<CustomFilterSheet> {
-  final Set<String> _selectedCategories = {};
-  final Set<String> _selectedTags = {};
+  final _filterList = ['Category', 'Price', 'Tags'];
+  int _selectedFilterIndex = 0;
 
-  double _selectedPrice = 100;
-
- 
-
-  @override
-void initState() {
-  super.initState();
-  _selectedCategories.addAll(widget.homeController.selectedCategories);
-  _selectedTags.addAll(widget.homeController.selectedTags);
-  _selectedPrice = widget.homeController.maxPrice.value;
-}
+  Set<String> _selectedCategories = {};
+  Set<String> _selectedTags = {};
+  RangeValues _rangeValues = RangeValues(0, 10000);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-      child: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: [
-            Row(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
               children: [
                 Icon(Icons.filter_alt_outlined),
+                SizedBox(width: 10),
                 Text('Filter'),
                 Spacer(),
                 InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Icon(Icons.close)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: Icon(Icons.close)),
               ],
             ),
-            TabBar(tabs: [
-              Tab(text: 'Category'),
-              Tab(text: 'Price'),
-              Tab(text: 'Tags'),
-            ]),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  ListView.builder(
-                shrinkWrap: true,
-                itemCount: AppConstants.categories.length,
-                itemBuilder: (context, index) {
-                  final category = AppConstants.categories[index];
-                  final isSelected = _selectedCategories.contains(category);
-                  return ListTile(
-                    title: Text(category),
-                    trailing: isSelected ? const Icon(Icons.check, color: Colors.blue) : null,
-                    onTap: () {
-                      setState(() {
-                        if (isSelected) {
-                          _selectedCategories.remove(category);
-                        } else {
-                          _selectedCategories.add(category);
-                        }
-                      });
-                    },
-                  );
-                },
-              ),
-                 Column(
-                  children: [
-                    SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      showValueIndicator: ShowValueIndicator.always,
-                      valueIndicatorTextStyle: const TextStyle(color: Colors.white),
-                    ),
-                    child: Slider(
-                      value: _selectedPrice,
-                      min: 0,
-                      max: 100,
-                      divisions: 20,
-                      label: '\$${_selectedPrice.toInt()}',
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedPrice = value;
-                        });
+          ),
+          SizedBox(height: 20),
+          Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: ColoredBox(
+                    color: AppColors.containerBg,
+                    child: ListView.builder(
+                      itemCount: _filterList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var item = _filterList[index];
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedFilterIndex = index;
+                            });
+                          },
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: double.infinity,
+                                  width: 5,
+                                  color: _selectedFilterIndex == index
+                                      ? AppColors.primary
+                                      : null,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 5),
+                                  child: Text(
+                                    item,
+                                    style: TextStyle(fontSize: 15),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
-                  Text('Max Price: \$${_selectedPrice.toInt()}'),
-                  ],
-                 ),
-                  ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 200),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: AppConstants.tagsList.map((tag) {
-                    final isSelected = _selectedTags.contains(tag);
-                    return ListTile(
-                      title: Text(tag),
-                      trailing: isSelected
-                          ? const Icon(Icons.check, color: Colors.blue)
-                          : null,
-                      onTap: () {
-                        setState(() {
-                          isSelected ? _selectedTags.remove(tag) : _selectedTags.add(tag);
-                        });
-                      },
-                    );
-                  }).toList(),
                 ),
-              ),
-            ),
-                ]
-              ),
-            ),
-        
-            Row(
-              children: [
-                Expanded(child: CommonButton(title: 'Back', onTap: (){})),
-                Expanded(child: CommonButton(title: 'Apply', onTap: (){
-                  // widget.homeController.selectedCategories
-                  //   ..clear()
-                  //   ..addAll(_selectedCategories);
-        
-                  // widget.homeController.selectedTags
-                  //   ..clear()
-                  //   ..addAll(_selectedTags);
-        
-                  // widget.homeController.maxPrice.value = _selectedPrice;
-                  // widget.homeController.applyFilters();
-        
-                  log('max price----${_selectedPrice}');
-                  Navigator.pop(context);
-                }))
+                SizedBox(
+                  width: 15,
+                ),
+                Expanded(
+                    flex: 2, child: _buildFilterWidgets(_selectedFilterIndex))
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                    child: CommonButton(
+                        title: 'Reset',
+                        onTap: () {
+                          _clearSelectedFilters();
+                        })),
+                SizedBox(width: 10),
+                Expanded(
+                    child: CommonButton(
+                        title: 'Apply',
+                        onTap: () {
+                          _applyFilter();
+                        }))
+              ],
+            ),
+          )
+        ],
       ),
     );
+  }
+
+  Widget _buildFilterWidgets(int index) {
+    switch (index) {
+      case 0:
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: AppConstants.categories.length,
+          itemBuilder: (context, index) {
+            final category = AppConstants.categories[index];
+            final isSelected = _selectedCategories.contains(category);
+            return ListTile(
+              title: Text(category),
+              trailing: isSelected
+                  ? const Icon(Icons.check, color: Colors.blue)
+                  : null,
+              onTap: () {
+                setState(() {
+                  if (isSelected) {
+                    _selectedCategories.remove(category);
+                  } else {
+                    _selectedCategories.add(category);
+                  }
+                });
+              },
+            );
+          },
+        );
+      case 1:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '₹ ${_rangeValues.start.truncate()} - ₹ ${_rangeValues.end.truncate()}',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
+            ),
+            RangeSlider(
+              values: RangeValues(_rangeValues.start, _rangeValues.end),
+              labels: RangeLabels(
+                  _rangeValues.start.toString(), _rangeValues.end.toString()),
+              onChanged: (value) {
+                setState(() {
+                  _rangeValues = value;
+                });
+              },
+              min: 0.0,
+              max: 10000.0,
+            ),
+          ],
+        );
+      case 2:
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: AppConstants.tagsList.length,
+          itemBuilder: (context, index) {
+            final tag = AppConstants.tagsList[index];
+            final isSelected = _selectedTags.contains(tag);
+            return ListTile(
+              title: Text(tag),
+              trailing: isSelected
+                  ? const Icon(Icons.check, color: Colors.blue)
+                  : null,
+              onTap: () {
+                setState(() {
+                  if (isSelected) {
+                    _selectedTags.remove(tag);
+                  } else {
+                    _selectedTags.add(tag);
+                  }
+                });
+              },
+            );
+          },
+        );
+      default:
+        return SizedBox.shrink();
+    }
+  }
+
+  _clearSelectedFilters() {
+    _selectedCategories = {};
+    _selectedTags = {};
+    _rangeValues = RangeValues(0, 10000);
+    Navigator.pop(context);
+    FocusScope.of(context).unfocus();
+  }
+
+  _applyFilter() {
+    widget.homeController.selectedCategories
+      ..clear()
+      ..addAll(_selectedCategories);
+    widget.homeController.selectedTags
+      ..clear()
+      ..addAll(_selectedTags);
+    widget.homeController.rangeValues.value = _rangeValues;
+    widget.homeController.applyFilters();
+    Navigator.pop(context);
   }
 }

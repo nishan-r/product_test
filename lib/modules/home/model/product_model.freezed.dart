@@ -239,7 +239,12 @@ mixin _$Product {
   String? get category => throw _privateConstructorUsedError;
   num? get rating => throw _privateConstructorUsedError;
   num? get price => throw _privateConstructorUsedError;
+  num? get discountPercentage => throw _privateConstructorUsedError;
+  num? get stock => throw _privateConstructorUsedError;
   List<String>? get tags => throw _privateConstructorUsedError;
+  String? get brand => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
+  List<Reviews>? get reviews => throw _privateConstructorUsedError;
 
   /// Serializes this Product to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -263,7 +268,12 @@ abstract class $ProductCopyWith<$Res> {
       String? category,
       num? rating,
       num? price,
-      List<String>? tags});
+      num? discountPercentage,
+      num? stock,
+      List<String>? tags,
+      String? brand,
+      List<String>? images,
+      List<Reviews>? reviews});
 }
 
 /// @nodoc
@@ -288,7 +298,12 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? category = freezed,
     Object? rating = freezed,
     Object? price = freezed,
+    Object? discountPercentage = freezed,
+    Object? stock = freezed,
     Object? tags = freezed,
+    Object? brand = freezed,
+    Object? images = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -319,10 +334,30 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as num?,
+      discountPercentage: freezed == discountPercentage
+          ? _value.discountPercentage
+          : discountPercentage // ignore: cast_nullable_to_non_nullable
+              as num?,
+      stock: freezed == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as num?,
       tags: freezed == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      brand: freezed == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Reviews>?,
     ) as $Val);
   }
 }
@@ -342,7 +377,12 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String? category,
       num? rating,
       num? price,
-      List<String>? tags});
+      num? discountPercentage,
+      num? stock,
+      List<String>? tags,
+      String? brand,
+      List<String>? images,
+      List<Reviews>? reviews});
 }
 
 /// @nodoc
@@ -365,7 +405,12 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? category = freezed,
     Object? rating = freezed,
     Object? price = freezed,
+    Object? discountPercentage = freezed,
+    Object? stock = freezed,
     Object? tags = freezed,
+    Object? brand = freezed,
+    Object? images = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$ProductImpl(
       id: freezed == id
@@ -396,10 +441,30 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as num?,
+      discountPercentage: freezed == discountPercentage
+          ? _value.discountPercentage
+          : discountPercentage // ignore: cast_nullable_to_non_nullable
+              as num?,
+      stock: freezed == stock
+          ? _value.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as num?,
       tags: freezed == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      brand: freezed == brand
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      images: freezed == images
+          ? _value._images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<Reviews>?,
     ));
   }
 }
@@ -415,8 +480,15 @@ class _$ProductImpl implements _Product {
       this.category,
       this.rating,
       this.price,
-      final List<String>? tags})
-      : _tags = tags;
+      this.discountPercentage,
+      this.stock,
+      final List<String>? tags,
+      this.brand,
+      final List<String>? images,
+      final List<Reviews>? reviews})
+      : _tags = tags,
+        _images = images,
+        _reviews = reviews;
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -435,6 +507,10 @@ class _$ProductImpl implements _Product {
   final num? rating;
   @override
   final num? price;
+  @override
+  final num? discountPercentage;
+  @override
+  final num? stock;
   final List<String>? _tags;
   @override
   List<String>? get tags {
@@ -446,8 +522,30 @@ class _$ProductImpl implements _Product {
   }
 
   @override
+  final String? brand;
+  final List<String>? _images;
+  @override
+  List<String>? get images {
+    final value = _images;
+    if (value == null) return null;
+    if (_images is EqualUnmodifiableListView) return _images;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Reviews>? _reviews;
+  @override
+  List<Reviews>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   String toString() {
-    return 'Product(id: $id, title: $title, thumbnail: $thumbnail, description: $description, category: $category, rating: $rating, price: $price, tags: $tags)';
+    return 'Product(id: $id, title: $title, thumbnail: $thumbnail, description: $description, category: $category, rating: $rating, price: $price, discountPercentage: $discountPercentage, stock: $stock, tags: $tags, brand: $brand, images: $images, reviews: $reviews)';
   }
 
   @override
@@ -465,7 +563,13 @@ class _$ProductImpl implements _Product {
                 other.category == category) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
+            (identical(other.discountPercentage, discountPercentage) ||
+                other.discountPercentage == discountPercentage) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.brand, brand) || other.brand == brand) &&
+            const DeepCollectionEquality().equals(other._images, _images) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -479,7 +583,12 @@ class _$ProductImpl implements _Product {
       category,
       rating,
       price,
-      const DeepCollectionEquality().hash(_tags));
+      discountPercentage,
+      stock,
+      const DeepCollectionEquality().hash(_tags),
+      brand,
+      const DeepCollectionEquality().hash(_images),
+      const DeepCollectionEquality().hash(_reviews));
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -506,7 +615,12 @@ abstract class _Product implements Product {
       final String? category,
       final num? rating,
       final num? price,
-      final List<String>? tags}) = _$ProductImpl;
+      final num? discountPercentage,
+      final num? stock,
+      final List<String>? tags,
+      final String? brand,
+      final List<String>? images,
+      final List<Reviews>? reviews}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -525,12 +639,184 @@ abstract class _Product implements Product {
   @override
   num? get price;
   @override
+  num? get discountPercentage;
+  @override
+  num? get stock;
+  @override
   List<String>? get tags;
+  @override
+  String? get brand;
+  @override
+  List<String>? get images;
+  @override
+  List<Reviews>? get reviews;
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Reviews _$ReviewsFromJson(Map<String, dynamic> json) {
+  return _Reviews.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Reviews {
+  num? get rating => throw _privateConstructorUsedError;
+  String? get comment => throw _privateConstructorUsedError;
+
+  /// Serializes this Reviews to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of Reviews
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ReviewsCopyWith<Reviews> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ReviewsCopyWith<$Res> {
+  factory $ReviewsCopyWith(Reviews value, $Res Function(Reviews) then) =
+      _$ReviewsCopyWithImpl<$Res, Reviews>;
+  @useResult
+  $Res call({num? rating, String? comment});
+}
+
+/// @nodoc
+class _$ReviewsCopyWithImpl<$Res, $Val extends Reviews>
+    implements $ReviewsCopyWith<$Res> {
+  _$ReviewsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of Reviews
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? rating = freezed,
+    Object? comment = freezed,
+  }) {
+    return _then(_value.copyWith(
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as num?,
+      comment: freezed == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ReviewsImplCopyWith<$Res> implements $ReviewsCopyWith<$Res> {
+  factory _$$ReviewsImplCopyWith(
+          _$ReviewsImpl value, $Res Function(_$ReviewsImpl) then) =
+      __$$ReviewsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({num? rating, String? comment});
+}
+
+/// @nodoc
+class __$$ReviewsImplCopyWithImpl<$Res>
+    extends _$ReviewsCopyWithImpl<$Res, _$ReviewsImpl>
+    implements _$$ReviewsImplCopyWith<$Res> {
+  __$$ReviewsImplCopyWithImpl(
+      _$ReviewsImpl _value, $Res Function(_$ReviewsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of Reviews
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? rating = freezed,
+    Object? comment = freezed,
+  }) {
+    return _then(_$ReviewsImpl(
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as num?,
+      comment: freezed == comment
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ReviewsImpl implements _Reviews {
+  const _$ReviewsImpl({this.rating, this.comment});
+
+  factory _$ReviewsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ReviewsImplFromJson(json);
+
+  @override
+  final num? rating;
+  @override
+  final String? comment;
+
+  @override
+  String toString() {
+    return 'Reviews(rating: $rating, comment: $comment)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReviewsImpl &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.comment, comment) || other.comment == comment));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, rating, comment);
+
+  /// Create a copy of Reviews
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReviewsImplCopyWith<_$ReviewsImpl> get copyWith =>
+      __$$ReviewsImplCopyWithImpl<_$ReviewsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ReviewsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Reviews implements Reviews {
+  const factory _Reviews({final num? rating, final String? comment}) =
+      _$ReviewsImpl;
+
+  factory _Reviews.fromJson(Map<String, dynamic> json) = _$ReviewsImpl.fromJson;
+
+  @override
+  num? get rating;
+  @override
+  String? get comment;
+
+  /// Create a copy of Reviews
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReviewsImplCopyWith<_$ReviewsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

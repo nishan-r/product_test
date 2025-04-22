@@ -33,7 +33,15 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       category: json['category'] as String?,
       rating: json['rating'] as num?,
       price: json['price'] as num?,
+      discountPercentage: json['discountPercentage'] as num?,
+      stock: json['stock'] as num?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      brand: json['brand'] as String?,
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Reviews.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -45,5 +53,22 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'category': instance.category,
       'rating': instance.rating,
       'price': instance.price,
+      'discountPercentage': instance.discountPercentage,
+      'stock': instance.stock,
       'tags': instance.tags,
+      'brand': instance.brand,
+      'images': instance.images,
+      'reviews': instance.reviews,
+    };
+
+_$ReviewsImpl _$$ReviewsImplFromJson(Map<String, dynamic> json) =>
+    _$ReviewsImpl(
+      rating: json['rating'] as num?,
+      comment: json['comment'] as String?,
+    );
+
+Map<String, dynamic> _$$ReviewsImplToJson(_$ReviewsImpl instance) =>
+    <String, dynamic>{
+      'rating': instance.rating,
+      'comment': instance.comment,
     };

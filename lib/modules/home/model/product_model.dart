@@ -26,9 +26,26 @@ class Product with _$Product{
     final String? category,
     final num? rating,
     final num? price,
+    final num? discountPercentage,
+    final num? stock,
     final List<String>? tags,
+    final String? brand,
+    final List<String>? images,
+    final List<Reviews>? reviews,
 
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+}
+
+
+@freezed
+class Reviews with _$Reviews{
+  const factory Reviews({
+   final num? rating,
+   final String? comment
+
+  }) = _Reviews;
+
+  factory Reviews.fromJson(Map<String, dynamic> json) => _$ReviewsFromJson(json);
 }

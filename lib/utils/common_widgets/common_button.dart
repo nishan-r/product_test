@@ -20,7 +20,11 @@ class CommonButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: AppColors.primary
         ),
-        child: Center(child: Text(title)),
+        child: Center(child: Text(title,style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.white
+        ),)),
       ),
     );
   }

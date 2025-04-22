@@ -1,23 +1,20 @@
-
-
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:product_test/api/network_service.dart';
 import 'package:product_test/api/url_constants.dart';
 import 'package:product_test/modules/home/model/product_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  
   final _netWorkService = NetworkService();
 
-  var filteredProducts = <Product>[].obs;
   var selectedCategories = <String>{}.obs;
   var selectedTags = <String>{}.obs;
-  var maxPrice = 100.0.obs;
-
+  var rangeValues = RangeValues(0, 10000).obs;
 
   var products = <Product>[].obs;
+  var filteredProducts = <Product>[].obs;
   var isLoading = true.obs;
 
   @override
@@ -37,21 +34,33 @@ class HomeController extends GetxController {
         applyFilters();
       }
     } catch (e) {
-      print("Error fetching products: $e");
+      log("Erro $e");
     } finally {
       isLoading(false);
     }
   }
 
-
   void applyFilters() {
-  filteredProducts.value = products.where((product) {
-    final matchesCategory = selectedCategories.isEmpty || selectedCategories.contains(product.category);
-    final matchesPrice = (product.price??0) <= maxPrice.value;
-    final matchesTags = selectedTags.isEmpty || product.tags!.any((tag) => selectedTags.contains(tag));
-    return matchesCategory && matchesPrice && matchesTags;
-  }).toList();
+    filteredProducts.value = products.where((product) {
+      final matchesCategory = selectedCategories.isEmpty ||
+          selectedCategories.contains(product.category);
+      final matchesPrice = (product.price ?? 0) >= rangeValues.value.start &&
+          (product.price ?? 0) <= rangeValues.value.end;
+      final matchesTags = selectedTags.isEmpty ||
+          product.tags!.any((tag) => selectedTags.contains(tag));
+      return matchesCategory && matchesPrice && matchesTags;
+    }).toList();
 
-  log('filtered length :${filteredProducts.length}');
-}
+    log('filtereds length :${filteredProducts.length}');
+  }
+
+  searchProducts(String input) {
+    if (input.isEmpty) {
+      filteredProducts.value = products;
+    } else {
+      filteredProducts.value = products
+          .where((e) => (e.title ?? '').toLowerCase().contains(input))
+          .toList();
+    }
+  }
 }

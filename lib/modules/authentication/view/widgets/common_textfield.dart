@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 
 class CommonTextField extends StatelessWidget {
-  const CommonTextField({
-    super.key, required this.controller,  this.label,this.hint
-  });
+  const CommonTextField(
+      {super.key,
+      required this.controller,
+      this.label,
+      this.hint,
+      this.validator});
 
   final TextEditingController controller;
   final String? label;
   final String? hint;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: validator,
       decoration: InputDecoration(
-        label:label==null? null: Text(label!),
+        label: label == null ? null : Text(label!),
         isDense: true,
         border: OutlineInputBorder(),
         hintText: hint,
@@ -22,6 +28,6 @@ class CommonTextField extends StatelessWidget {
       onTapOutside: (event) {
         FocusScope.of(context).unfocus();
       },
-      );
+    );
   }
 }

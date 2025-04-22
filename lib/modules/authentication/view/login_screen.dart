@@ -1,80 +1,127 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:product_test/modules/authentication/view/widgets/common_textfield.dart';
-
+import 'package:product_test/utils/constants/app_colors.dart';
 import '../../../utils/common_widgets/common_button.dart';
 import '../../../utils/constants/app_constants.dart';
 import '../../home/view/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
-
+  LoginScreen({super.key});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
-  
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+      backgroundColor: AppColors.primary,
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Lets Get Started',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            ),
-            CommonTextField(
-              controller: emailController,
-              label: 'Email',
-            ),
-            CommonTextField(
-              controller: passwordController,
-              label: 'Password',
-            ),
-            CommonButton(
-              title: 'Login',
-              onTap: () {
-               final isValid =  _checkUserNameAndPasswordValid();
-               if(isValid){
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
-               }
-               else{
-                ScaffoldMessenger.of(context).showMaterialBanner(
-                  MaterialBanner(
-                    content: Text('Invalid Credentials'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-                        },
-                        child: Text('OK'),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      'assets/images/app_logo.png',
+                      height: size.height * .2,
+                    ),
+                    Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
-                );
-               }
-              })
+                    ),
+                    Text(
+                      "Hi, Welcome back, you've been missed",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              height: size.height * .4,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(30))),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CommonTextField(
+                      controller: emailController,
+                      label: 'Email',
+                      validator: (p0) {
+                        if (p0?.isEmpty??false) {
+                          return '* required';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    CommonTextField(
+                      controller: passwordController,
+                      validator: (p0) {
+                        if (p0?.isEmpty??false) {
+                          return '* required';
+                        }
+                        return null;
+                      },
+                      label: 'Password',
+                    ),
+                    SizedBox(height: 30),
+                    CommonButton(
+                        title: 'Login',
+                        onTap: () {
+                          if (_formKey.currentState?.validate()??false) {
+                            final isValid = _checkUserNameAndPasswordValid();
+                          if (isValid) {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()),
+                                (route) => false);
+                          } else {
+                
+                            ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Text('Invalid Credentials'),
+                              ),
+                            );
+                          }
+                          }
+                        })
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-
-  _checkUserNameAndPasswordValid(){
-    if(emailController.text == AppConstants.userName && passwordController.text == AppConstants.password){
+  _checkUserNameAndPasswordValid() {
+    if (emailController.text == AppConstants.userName &&
+        passwordController.text == AppConstants.password) {
       return true;
     }
     return false;
   }
 }
-
-
-
