@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:product_test/utils/common_widgets/common_button.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
+import 'package:product_test/utils/constants/app_spaces.dart';
 import '../model/product_model.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -78,7 +79,7 @@ class ProductDetailScreen extends StatelessWidget {
                         size: 15,
                         color: Colors.amber,
                       ),
-                      SizedBox(width: 5),
+                      cmWidth05,
                       RichText(
                         text: TextSpan(children: [
                           TextSpan(
@@ -120,9 +121,7 @@ class ProductDetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  cmHeight15,
                   Text(
                     'Product Details',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

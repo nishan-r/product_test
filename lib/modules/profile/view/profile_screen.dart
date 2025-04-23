@@ -7,6 +7,9 @@ import 'package:product_test/modules/authentication/view/widgets/common_textfiel
 import 'package:product_test/modules/profile/controller/profile_controller.dart';
 import 'package:product_test/utils/common_widgets/common_button.dart';
 import 'package:product_test/utils/constants/app_constants.dart';
+import 'package:product_test/utils/constants/app_spaces.dart';
+
+import '../../../utils/constants/app_assets.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -52,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundImage: _profileController
                                   .selectedImagePath.value ==
                               null
-                          ? AssetImage('assets/images/dummyProfile.png')
+                          ? AssetImage(AppAssets.dummyProfile)
                           : FileImage(File(
                               _profileController.selectedImagePath.value!))),
                 ),
@@ -117,12 +120,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             ),
-            SizedBox(height: 30),
+            cmHeight30,
             CommonTextField(
               controller: userNameCtr,
               label: 'User Name',
             ),
-            SizedBox(height: 20),
+            cmHeight20,
             CommonTextField(
               controller: passWordCtr,
               label: 'Password',

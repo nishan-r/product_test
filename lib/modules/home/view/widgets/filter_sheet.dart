@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_test/utils/common_widgets/common_button.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
+import 'package:product_test/utils/constants/app_spaces.dart';
 import '../../../../utils/constants/app_constants.dart';
 import '../../controller/home_controller.dart';
 
@@ -35,7 +36,7 @@ class _CustomFilterSheetState extends State<CustomFilterSheet> {
             child: Row(
               children: [
                 Icon(Icons.filter_alt_outlined),
-                SizedBox(width: 10),
+                cmWidth10,
                 Text('Filter'),
                 Spacer(),
                 InkWell(
@@ -47,7 +48,7 @@ class _CustomFilterSheetState extends State<CustomFilterSheet> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          cmHeight20,
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,9 +93,7 @@ class _CustomFilterSheetState extends State<CustomFilterSheet> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 15,
-                ),
+                cmWidth15,
                 Expanded(
                     flex: 2, child: _buildFilterWidgets(_selectedFilterIndex))
               ],
@@ -110,7 +109,7 @@ class _CustomFilterSheetState extends State<CustomFilterSheet> {
                         onTap: () {
                           _clearSelectedFilters();
                         })),
-                SizedBox(width: 10),
+                cmWidth10,
                 Expanded(
                     child: CommonButton(
                         title: 'Apply',

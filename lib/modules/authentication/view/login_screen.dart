@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:product_test/modules/authentication/view/widgets/common_textfield.dart';
+import 'package:product_test/utils/constants/app_assets.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
+import 'package:product_test/utils/constants/app_spaces.dart';
 import '../../../utils/common_widgets/common_button.dart';
 import '../../../utils/constants/app_constants.dart';
 import '../../home/view/home_screen.dart';
@@ -31,11 +33,8 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Image.asset(
-                      'assets/images/app_logo.png',
+                    cmHeight20,
+                    Image.asset(AppAssets.appLogo,
                       height: size.height * .2,
                     ),
                     Text(
@@ -77,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    cmHeight20,
                     Obx(() => CommonTextField(
                       controller: passwordController,
                       validator: (p0) {
@@ -92,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                         _authController.obscurePAssword();
                       },
                     ),),
-                    SizedBox(height: 30),
+                    cmHeight30,
                     CommonButton(
                         title: 'Login',
                         onTap: () {

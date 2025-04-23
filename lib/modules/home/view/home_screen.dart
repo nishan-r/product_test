@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:product_test/modules/authentication/view/widgets/common_textfield.dart';
 import 'package:product_test/modules/home/view/product_detail_screen.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
+import 'package:product_test/utils/constants/app_spaces.dart';
 import '../../profile/view/profile_screen.dart';
 import '../controller/home_controller.dart';
 import 'widgets/filter_sheet.dart';
@@ -13,6 +14,13 @@ class HomeScreen extends StatelessWidget {
 
   final TextEditingController searchTextCtr = TextEditingController();
   final HomeController homeController = Get.put(HomeController());
+
+
+  _clearTextFields(){
+    searchTextCtr.clear();
+    homeController.fetchProducts();
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                 child: CommonTextField(
                                     controller: searchTextCtr,
                                     hint: 'Search...')),
-                            SizedBox(width: 10),
+                            cmWidth10,
                             AspectRatio(
                               aspectRatio: 1,
                               child: InkWell(
@@ -63,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                                         color: Colors.white)),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            cmWidth10,
                             AspectRatio(
                               aspectRatio: 1,
                               child: InkWell(
@@ -77,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                                       homeController: homeController,
                                     ),
                                   );
-                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  _clearTextFields();
                                 },
                                 child: Container(
                                     decoration: BoxDecoration(
@@ -91,7 +99,11 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10),
+                      cmHeight10,
+
+                      homeController.filteredProducts.isEmpty ? 
+                      Center(child: Text('No Items Found'),):
+
                       GridView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
