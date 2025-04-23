@@ -18,10 +18,13 @@ class HomeScreen extends StatelessWidget {
 
   _clearTextFields(){
     searchTextCtr.clear();
-    homeController.fetchProducts();
+    _resetProducts();
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
+  _resetProducts(){
+    homeController.searchProducts('');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

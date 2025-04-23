@@ -4,6 +4,7 @@ import 'package:product_test/modules/authentication/view/widgets/common_textfiel
 import 'package:product_test/utils/constants/app_assets.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
 import 'package:product_test/utils/constants/app_spaces.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/common_widgets/common_button.dart';
 import '../../../utils/constants/app_constants.dart';
 import '../../home/view/home_screen.dart';
@@ -94,13 +95,14 @@ class LoginScreen extends StatelessWidget {
                     cmHeight30,
                     CommonButton(
                         title: 'Login',
-                        onTap: () {
+                        onTap: () async{
                           if (_formKey.currentState?.validate()??false) {
                             final isValid = _checkUserNameAndPasswordValid();
                           if (isValid) {
+                           await _saveLoggedInStatus();
                             Get.offAll(HomeScreen());
                           } else {
-                            Get.snackbar('Error', 'Invalid Credentials');
+                            Get.snackbar('Error', 'Invalid Credentials',duration: Duration(seconds: 1));
                           }
                           }
                         })
@@ -120,5 +122,10 @@ class LoginScreen extends StatelessWidget {
       return true;
     }
     return false;
+  }
+
+  _saveLoggedInStatus()async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
   }
 }

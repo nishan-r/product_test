@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import 'package:product_test/modules/profile/controller/profile_controller.dart'
 import 'package:product_test/utils/common_widgets/common_button.dart';
 import 'package:product_test/utils/constants/app_constants.dart';
 import 'package:product_test/utils/constants/app_spaces.dart';
-
 import '../../../utils/constants/app_assets.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -151,9 +149,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _saveChanges(){
     if (userNameCtr.text == AppConstants.userName && passWordCtr.text == AppConstants.password) {
-      Get.snackbar('Warning', 'No Change Detected');
+      Get.snackbar('Warning', 'No Change Detected',duration: Duration(seconds: 1));
     } else {
-      Get.snackbar('Success', 'Profile updated successfully');
+      Get.snackbar('Success', 'Profile updated successfully',duration: Duration(seconds: 1));
     }
   }
 }
