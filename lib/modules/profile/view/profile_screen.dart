@@ -128,7 +128,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               label: 'Password',
             ),
             Spacer(),
-            CommonButton(title: 'Submit', onTap: () {}),
+            CommonButton(title: 'Submit', onTap: () {
+              _saveChanges();
+            }),
           ],
         ),
       ),
@@ -142,5 +144,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _profileController.selectImage(pickedFile);
     }
     return pickedFile;
+  }
+
+  _saveChanges(){
+    if (userNameCtr.text == AppConstants.userName && passWordCtr.text == AppConstants.password) {
+      Get.snackbar('Warning', 'No Change Detected');
+    } else {
+      Get.snackbar('Success', 'Profile updated successfully');
+    }
   }
 }

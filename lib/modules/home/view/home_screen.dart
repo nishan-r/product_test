@@ -22,8 +22,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
+                  Get.to(() => ProfileScreen());
                 },
                 child: CircleAvatar(
                   child: Icon(Icons.person),
@@ -107,12 +106,7 @@ class HomeScreen extends StatelessWidget {
                           var item = homeController.filteredProducts[index];
                           return InkWell(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductDetailScreen(
-                                            productData: item,
-                                          )));
+                              Get.to(() => ProductDetailScreen(productData: item));
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),

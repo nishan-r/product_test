@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:product_test/modules/authentication/view/widgets/common_textfield.dart';
 import 'package:product_test/utils/constants/app_colors.dart';
 import '../../../utils/common_widgets/common_button.dart';
 import '../../../utils/constants/app_constants.dart';
 import '../../home/view/home_screen.dart';
+import '../controller/auth_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
+
+
+  final _authController = Get.put(AuthController());
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -73,7 +78,7 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 20),
-                    CommonTextField(
+                    Obx(() => CommonTextField(
                       controller: passwordController,
                       validator: (p0) {
                         if (p0?.isEmpty??false) {
@@ -82,7 +87,11 @@ class LoginScreen extends StatelessWidget {
                         return null;
                       },
                       label: 'Password',
-                    ),
+                      obscureText: _authController.hidePassword.value,
+                      onSuffixIconTapped: () {
+                        _authController.obscurePAssword();
+                      },
+                    ),),
                     SizedBox(height: 30),
                     CommonButton(
                         title: 'Login',
@@ -90,20 +99,9 @@ class LoginScreen extends StatelessWidget {
                           if (_formKey.currentState?.validate()??false) {
                             final isValid = _checkUserNameAndPasswordValid();
                           if (isValid) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()),
-                                (route) => false);
+                            Get.offAll(HomeScreen());
                           } else {
-                
-                            ScaffoldMessenger.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(
-                              SnackBar(
-                                content: Text('Invalid Credentials'),
-                              ),
-                            );
+                            Get.snackbar('Error', 'Invalid Credentials');
                           }
                           }
                         })
